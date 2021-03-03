@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for, request, redirect
+import os
+from flask import Flask, render_template, url_for, request, redirect,send_from_directory
 from flask_sqlalchemy import  SQLAlchemy
 from datetime import datetime
 
@@ -58,6 +59,10 @@ def update(id):
             return 'There was an issue updating your task'
     else:
         return render_template('update.html', task=task)
+
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     app.run(debug=True)
